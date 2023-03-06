@@ -7,6 +7,9 @@
     <Filter Include="type">
       <UniqueIdentifier>{b485c433-accd-4e91-8e6b-20be9fc7fd9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="primitive">
+      <UniqueIdentifier>{455eb539-00ea-4a21-925f-06b7f04e34c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -14,9 +17,6 @@
     </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>pch</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>type</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>type</Filter>
@@ -27,13 +27,28 @@
     <ClInclude Include="Vector2f.h">
       <Filter>type</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Face.h">
+      <Filter>primitive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>pch</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>type</Filter>
+      <Filter>primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Face.cpp">
+      <Filter>primitive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

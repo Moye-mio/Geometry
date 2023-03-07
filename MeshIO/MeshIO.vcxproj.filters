@@ -15,15 +15,24 @@
     <ClInclude Include="framework.h">
       <Filter>pch</Filter>
     </ClInclude>
-    <ClInclude Include="load.h">
+    <ClInclude Include="Loader.h">
       <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJLoader.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>pch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>pch</Filter>
     </ClCompile>
-    <ClCompile Include="load.cpp">
+    <ClCompile Include="Loader.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="OBJLoader.cpp">
       <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>

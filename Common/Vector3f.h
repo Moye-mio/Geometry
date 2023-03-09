@@ -4,7 +4,6 @@
 
 using DataType				= float;
 using IndexType				= unsigned int;
-const unsigned int Size		= 3;
 
 class Vector3f
 {

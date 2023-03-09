@@ -15,6 +15,11 @@ struct SVertex
 	DataType u = -1;
 	DataType v = -1;
 
+	SVertex() = default;
+	SVertex(float vx, float vy, float vz) : x(vx), y(vy), z(vz) {}
+	SVertex(float vx, float vy, float vz, float vnx, float vny, float vnz) : x(vx), y(vy), z(vz), nx(vnx), ny(vny), nz(vnz) {}
+	SVertex(float vx, float vy, float vz, float vnx, float vny, float vnz, float vu, float vv) : x(vx), y(vy), z(vz), nx(vnx), ny(vny), nz(vnz), u(vu), v(vv) {}
+
 	Vector3f xyz() const { return { x, y, z }; }
 	Vector3f normal() const { return { nx, ny, nz }; }
 	Vector2f uv() const { return { u, v }; }

@@ -24,6 +24,8 @@
 
 // boost
 #include <boost/format.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
 // hive
 #include "common/Product.h"

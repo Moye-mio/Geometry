@@ -8,5 +8,6 @@ namespace IO
 	{
 	private:
 		int __loadDataFromFileV(const std::string& vFileName, std::shared_ptr<CMesh>& voMesh) override;
+		bool __checkVertexRepeat(const std::vector<SVertex>& vVertices, const SVertex& vVertex);
 	};
 }

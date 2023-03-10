@@ -1,5 +1,7 @@
 #include "pch.h"
 
+const std::string CubePath = TESTMODEL_DIR + std::string("/Cube.obj");
+
 class TestIO : public testing::Test
 {
 protected:
@@ -12,14 +14,11 @@ protected:
 	}
 };
 
-TEST(TestIO, DT_InvalidInput)
+TEST(TestIO, NT_Cube)
 {
-	std::string s = "sss /ddd,ggg";
-	std::vector<std::string> vStr;
-	boost::split(vStr, s, boost::is_any_of(" "), boost::token_compress_on);
-	for (std::vector<std::string>::iterator it = vStr.begin(); it != vStr.end(); ++it)
-	{
-		std::cout << *it << std::endl;
-	}
-	
+	const std::string Path = CubePath;
+	auto* pMeshLoader = hiveDesignPattern::hiveGetOrCreateProduct<IO::ILoader>(hiveUtility::hiveGetFileSuffix(Path));
+	ASSERT_TRUE(pMeshLoader);
+	std::shared_ptr<CMesh> pData = pMeshLoader->loadDataFromFile(Path);
+	ASSERT_FALSE(pData);
 }

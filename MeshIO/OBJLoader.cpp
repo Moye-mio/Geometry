@@ -32,17 +32,17 @@ int COBJLoader::__loadDataFromFileV(const std::string& vFileName, std::shared_pt
 		if (Line[0] != 'v') continue; 
 		if (Line[1] == 'n')
 		{
-			_HIVE_EARLY_RETURN(SpaceSplit.size() != 3, _FORMAT_STR1("Line: %1%, value size is nor correct", LineCount), -1);
+			_HIVE_EARLY_RETURN(SpaceSplit.size() != 4, _FORMAT_STR1("Line: %1%, value size is nor correct", LineCount), -1);
 			Normals.push_back(SNormal(std::atof(SpaceSplit[0].c_str()), std::atof(SpaceSplit[1].c_str()), std::atof(SpaceSplit[2].c_str())));
 		}
 		else if (Line[1] == 't')
 		{
-			_HIVE_EARLY_RETURN(SpaceSplit.size() != 2, _FORMAT_STR1("Line: %1%, value size is nor correct", LineCount), -1);
+			_HIVE_EARLY_RETURN(SpaceSplit.size() != 3, _FORMAT_STR1("Line: %1%, value size is nor correct", LineCount), -1);
 			UVs.push_back(SUV(std::atof(SpaceSplit[0].c_str()), std::atof(SpaceSplit[1].c_str())));
 		}
 		else
 		{
-			_HIVE_EARLY_RETURN(SpaceSplit.size() != 3, _FORMAT_STR1("Line: %1%, value size is nor correct", LineCount), -1);
+			_HIVE_EARLY_RETURN(SpaceSplit.size() != 4, _FORMAT_STR1("Line: %1%, value size is nor correct", LineCount), -1);
 			Poses.push_back(SPos(std::atof(SpaceSplit[0].c_str()), std::atof(SpaceSplit[1].c_str()), std::atof(SpaceSplit[2].c_str())));
 		}
 	}
@@ -61,10 +61,12 @@ int COBJLoader::__loadDataFromFileV(const std::string& vFileName, std::shared_pt
 		boost::split(SpaceSplit, Line, boost::is_any_of(" "), boost::token_compress_on);
 
 		if (Line[0] != 'f') continue;
-		for (const auto& e : SpaceSplit)
+		SFace Face;
+		for (int i = 0; i < SpaceSplit.size(); i++)
 		{
+			if (i == 0) continue;
 			std::vector<std::string> ObliqueSplit;
-			boost::split(ObliqueSplit, e, boost::is_any_of("/"), boost::token_compress_on);
+			boost::split(ObliqueSplit, SpaceSplit[i], boost::is_any_of("/"), boost::token_compress_on);
 			std::vector<std::uint32_t> Indices;
 			for (const auto& t : ObliqueSplit)
 				Indices.push_back(std::atoi(t.c_str()));
@@ -80,11 +82,23 @@ int COBJLoader::__loadDataFromFileV(const std::string& vFileName, std::shared_pt
 			Vertex.u = (IsUV) ? UVs[UVIndex].x : 0;
 			Vertex.v = (IsUV) ? UVs[UVIndex].y : 0;
 
-			// if vertex repeat
-			Vertices.emplace_back(Vertex);
+			if (__checkVertexRepeat(Vertices, Vertex) == false)
+				Vertices.emplace_back(Vertex);
+
+			_HIVE_EARLY_RETURN(i >= 4, "Face has more than 3 vertices", -1);
+			Face[i] = Vertices.size() - 1;
 		}
+		Faces.emplace_back(Face);
 	}
 
 	FileStream.close();
 	return 0;
+}
+
+bool COBJLoader::__checkVertexRepeat(const std::vector<SVertex>& vVertices, const SVertex& vVertex)
+{
+	for (const auto& e : vVertices)
+		if (e == vVertex)
+			return true;
+	return false;
 }

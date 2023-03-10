@@ -41,5 +41,8 @@
 #include "common/MathInterface.h"
 #include "common/CpuTimer.h"
 
+// lib
+#include "Loader.h"
+#include "OBJLoader.h"
 
 #endif //PCH_H
